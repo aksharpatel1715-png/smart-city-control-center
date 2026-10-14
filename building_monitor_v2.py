@@ -1,7 +1,28 @@
 import json
-with open("sensors.json", encoding="utf-8") as f:
-    sensors = json.load(f)
 
+
+def load_sensors(path):
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"ERROR: sensor file '{path}' not found.")
+        return []
+    except json.JSONDecodeError as e:
+        print(f"ERROR: '{path}' is not valid JSON (line {e.lineno}, column {e.colno}): {e.msg}")
+        return []
+
+sensors = load_sensors("sensors.json")
+
+def is_valid_sensor(sensor):
+    for key in ["name", "type", "value", "unit"]:
+        if key not in sensor:
+            return False
+    if not isinstance(sensor["value"], (int, float)):
+        return False
+    return True
+
+is_valid_sensor(sensors)
 def classify_humidity(percent):
     if percent > 60:
         return "ALERT: too humid"
@@ -62,6 +83,12 @@ bad_count = 0
 bad_names = []
 
 for sensor in sensors:
+    if not is_valid_sensor(sensor):
+        sensor_name = sensor.get("name", "Unknown sensor")
+        print(f"{sensor_name}: ALERT: invalid reading")
+        bad_count += 1
+        bad_names.append(sensor_name)
+        continue
     status = classify_sensor(sensor)
     print(f"{sensor['name']}: {sensor['value']} {sensor['unit']} - {status}")
     if not status.startswith("Status"):
