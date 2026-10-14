@@ -1,0 +1,8 @@
+[
+    {"name": "Lobby", "type": "temperature", "value": 72, "unit": "°F"},
+    {"name": "Server Room", "type": "temperature", "value": 55, "unit": "°F"},
+    {"name": "Floor 3", "type": "occupancy", "value": 51, "unit": "people"},
+    {"name": "Roof", "type": "temperature", "value": 104, "unit": "°F"},
+    {"name": "HVAC Unit", "type": "energy", "value": 38, "unit": "kW"},
+    {"name": "Lab", "type": "humidity", "value": 45, "unit": "%"}
+]
