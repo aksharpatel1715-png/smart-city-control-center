@@ -1,0 +1,6 @@
+{
+    "temperature": {"critical_above": 100, "hot_at_or_above": 85, "cold_at_or_below": 60},
+    "occupancy": {"max_people": 50},
+    "energy": {"max_kw": 50},
+    "humidity": {"max_percent": 60, "min_percent": 30}
+}
